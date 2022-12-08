@@ -1,6 +1,7 @@
 # jBasher programming language
 *a (VERY) basic programming language using the weirdest interpreter you've ever seen with virtually no error handling*
 
+! run `install.sh` to install all the dependencies needed for jbasher. if you cant, just install `prompt-sync`, `request`, and `fs`.
 
 ## Table Of Contents
 - How to use
