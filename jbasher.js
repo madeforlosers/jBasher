@@ -2,7 +2,7 @@
 |  jBasher by James Cartwright        |
 | @madeforlosers on github            |
 | https://github.com/madeforlosers    |
-| Version 5                           |
+| Version 6                           |
 \*-----------------------------------*/
 
 const request = require('request');
@@ -18,15 +18,6 @@ request.get('https://raw.githubusercontent.com/madeforlosers/jBasher/main/jbashe
 : \x1b[1m\x1b[34mVersion \x1b[36m` + parseInt(body.split("\n")[4].replace(/\D+/g, "")) + `\x1b[0m is avaiable!\x1b[0m
 : run jupdate.js to update
 *----------------------------- `)
-  } else if(parseInt(body.split("\n")[4].replace(/\D+/g, ""))<gg){
-
-    // \/ \/ edited / beta version text \/ \/
-    console.log(
-`*-----------------------------
-: \x1b[1m\x1b[34mthis seems to be an edited/beta version..\x1b[0m
-: good luck on figuring out how this works lol
-*----------------------------- `)
-    // /\ /\ edited / beta version text /\ /\
   }
   
 })
