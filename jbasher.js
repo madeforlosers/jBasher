@@ -2,7 +2,7 @@
 |  jBasher by James Cartwright        |
 | @madeforlosers on github            |
 | https://github.com/madeforlosers    |
-| Version 4                           |
+| Version 5                           |
 \*-----------------------------------*/
 
 const request = require('request');
@@ -10,15 +10,15 @@ const prompt = require('prompt-sync')();
 const fs = require('fs');
 
 // \/ \/ update checker \/ \/
-gg = parseInt(fs.readFileSync("jbasher.js", "utf-8").split("\n")[0].split("version ")[1])
+gg = parseInt(fs.readFileSync("jbasher.js", "utf-8").split("\n")[4].replace(/\D+/g, ""))
 request.get('https://raw.githubusercontent.com/madeforlosers/jBasher/main/jbasher.js', function(err, res, body) {
-  if (parseInt(body.split("\n")[4]) != "" && parseInt(body.split("\n")[4]) > gg) {
+  if (parseInt(body.split("\n")[4].replace(/\D+/g, "")) != "" && parseInt(body.split("\n")[4].replace(/\D+/g, "")) > gg) {
     console.log(
 `*-----------------------------
-: \x1b[1m\x1b[34mVersion \x1b[36m` + parseInt(body.split("\n")[4]) + `\x1b[0m is avaiable!\x1b[0m
+: \x1b[1m\x1b[34mVersion \x1b[36m` + parseInt(body.split("\n")[4].replace(/\D+/g, "")) + `\x1b[0m is avaiable!\x1b[0m
 : run jupdate.js to update
 *----------------------------- `)
-  } else {
+  } else if(parseInt(body.split("\n")[4].replace(/\D+/g, ""))<gg){
 
     // \/ \/ edited / beta version text \/ \/
     console.log(
