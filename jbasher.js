@@ -1,14 +1,37 @@
-// version 3
+/*-----------------------------------*\
+|  jBasher by James Cartwright        |
+| @madeforlosers on github            |
+| https://github.com/madeforlosers    |
+| Version 4                           |
+\*-----------------------------------*/
 
 const request = require('request');
 const prompt = require('prompt-sync')();
 const fs = require('fs');
+
+// \/ \/ update checker \/ \/
 gg = parseInt(fs.readFileSync("jbasher.js", "utf-8").split("\n")[0].split("version ")[1])
-request.get('https://raw.githubusercontent.com/madeforlosers/James-Archives/main/jBashInterpreter/jbasher.js', function(err, res, body) {
-  if(body.split("\n")[0].split("version ")[1] != undefined && parseInt(body.split("\n")[0].split("version ")[1]) > gg ){
-  console.log("*-----------------------------\n: \x1b[1m\x1b[34mVersion \x1b[36m"+body.split("\n")[0].split("version ")[1]+"\x1b[0m is avaiable!\x1b[0m\n: run jupdate.js to update\n*----------------------------- ")
+request.get('https://raw.githubusercontent.com/madeforlosers/jBasher/main/jbasher.js', function(err, res, body) {
+  if (parseInt(body.split("\n")[4]) != "" && parseInt(body.split("\n")[4]) > gg) {
+    console.log(
+`*-----------------------------
+: \x1b[1m\x1b[34mVersion \x1b[36m` + parseInt(body.split("\n")[4]) + `\x1b[0m is avaiable!\x1b[0m
+: run jupdate.js to update
+*----------------------------- `)
+  } else {
+
+    // \/ \/ edited / beta version text \/ \/
+    console.log(
+`*-----------------------------
+: \x1b[1m\x1b[34mthis seems to be an edited/beta version..\x1b[0m
+: good luck on figuring out how this works lol
+*----------------------------- `)
+    // /\ /\ edited / beta version text /\ /\
   }
+  
 })
+// /\ /\ update checker /\ /\
+
 function rnd(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -22,7 +45,7 @@ if (process.argv[2] == null) {
 var file = fs.readFileSync(process.argv[2], 'utf8')
 var code = file.split("\n")
 function stst(fn) {
-  if(typeof eval(fn) != 'boolean'){
+  if (typeof eval(fn) != 'boolean') {
     return
   }
   return new Function('return ' + fn)();
@@ -31,19 +54,19 @@ for (var i = 0; i < code.length; i++) {
   if (code[i].match(/^##/g) != null) {
     continue
   }
-    if(code[i].match(/#\w+#/g) != null){
-      tt = code[i].match(/#\w+#/g)
-    if(code[i].match(/#\w+#/g).length > 1){
+  if (code[i].match(/#\w+#/g) != null) {
+    tt = code[i].match(/#\w+#/g)
+    if (code[i].match(/#\w+#/g).length > 1) {
       console.log(tt.length)
-      for(var v = 0; v < tt.length; v++){
+      for (var v = 0; v < tt.length; v++) {
         code[i] = code[i].replace(tt[0], window[tt[0].replace(/#/g, "")])
       }
-    }else{
+    } else {
       code[i] = code[i].replace(tt[0], window[tt[0].replace(/#/g, "")])
     }
   }
 
-  
+
   if (code[i].match(/^run javascript code: /g) != null) {
     eval(code[i].split("code: ")[1])
     continue
@@ -56,7 +79,7 @@ for (var i = 0; i < code.length; i++) {
     text = code[i].split("write \"")[1].split("\" to file")[0]
     filename = code[i].split("to file \"")[1].split("\" with flag")[0]
     flags = code[i].split("flag ")[1]
-    fs.writeFileSync(filename, text, {flag: flags})
+    fs.writeFileSync(filename, text, { flag: flags })
     continue
   }
   if (code[i].match(/^set.+file.+to.+variable.+/g) != null) {
@@ -65,7 +88,7 @@ for (var i = 0; i < code.length; i++) {
   }
   if (code[i].match(/@\d+/g) != null) {
     ph = code[i]
-    ph = ph.replace(/@\d+/g,rnd(1, parseInt(code[i].split("@")[1])))
+    ph = ph.replace(/@\d+/g, rnd(1, parseInt(code[i].split("@")[1])))
     code[i] = ph
   }
 
@@ -77,7 +100,7 @@ for (var i = 0; i < code.length; i++) {
   if (code[i].match(/%\w+\|#.+#%/g) != null) {
     ph = code[i]
     ph = ph.replace(/#.+#/, window[ph.split("#")[1]])
-    ph = code[i].replace(/%\w+\|.+%/g,window[ph.match(/%\w+\|.+%/g)[0].split("|")[0].split("%")[1]][parseInt(ph.match(/%\w+\|.+%/g)[0].split("|")[1].split("%")[0]) - 1])
+    ph = code[i].replace(/%\w+\|.+%/g, window[ph.match(/%\w+\|.+%/g)[0].split("|")[0].split("%")[1]][parseInt(ph.match(/%\w+\|.+%/g)[0].split("|")[1].split("%")[0]) - 1])
   }
   if (code[i].match(/^set\s+string\s+\w+\sas\s\.+/g) != null) {
     window[code[i].split(" ")[2]] = code[i].split(" ")[4]
@@ -100,7 +123,7 @@ for (var i = 0; i < code.length; i++) {
     continue
   }
   if (code[i].match(/^ask for\s.+\sand set as variable\s\w+/g) != null) {
-    window[code[i].split("variable ")[1]] = prompt(code[i].split("ask for \"")[1].split("\" and")[0]+"?: ")
+    window[code[i].split("variable ")[1]] = prompt(code[i].split("ask for \"")[1].split("\" and")[0] + "?: ")
     continue
   }
   if (code[i].match(/^add\s.+\sto\slist\s\w+/g) != null) {
@@ -153,7 +176,7 @@ for (var i = 0; i < code.length; i++) {
     if (typeof window[code[i].split(/\s/)[1].split("by")[0]] != "number") {
       console.error("ERROR: CANNOT CONVERT STRING TO NUMBER (line " + (i + 1) + ")")
       return
-      
+
     } else {
       window[code[i].split("multiply ")[1].split(" by")[0]] *= parseInt(code[i].split(/^multiply\s+\w+\sby\s+/)[1])
       continue
@@ -217,7 +240,7 @@ for (var i = 0; i < code.length; i++) {
       continue
     }
   } catch (e) {
-    console.log( e)
+    console.log(e)
     return
   }
 }
