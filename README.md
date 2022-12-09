@@ -12,6 +12,8 @@
     - Declaring
     - Using
     - Adding strings to variable
+    - Splitting string
+    - Replacing text in string
   - Numbers
     - Declaring
     - Using
@@ -32,6 +34,7 @@
     - Declaring
     - Adding strings to list
     - Getting strings from list
+    - Joining list
 - Jumping to certain line
 - If statements
 - Loops
@@ -84,7 +87,30 @@ Strings are lines of text.
 #### Using
 `#[variable]#` (if using in say command, put it in the quotes)<br>
 #### Adding strings to variable
-`add [text] to string [variable]`
+Syntax: `add [text] to string [variable]`
+#### Splitting string
+split strings with command `split variable when string appears`. <br>
+Syntax: `split variable [variable] when string [string] appears`
+<br>
+<details>
+  <summary>Example:</summary>
+  
+  ### index.jb:
+  ```
+  set string text as "hello there world"
+  split variable text when string "there" appears
+  say "%text|1%"
+  ```
+  ### Output:
+  ```
+  hello
+  ```
+</details>
+
+#### Replacing text in string
+replace parts of string with `replace string with in variable` command.<br>
+Syntax: `replace string [substring to replace] with [replace with] in variable [variable]`
+
 
 
 ### Numbers
@@ -179,6 +205,10 @@ lists are a list of strings into one variable. basically the javascript array bu
 
 #### Getting string from list
 `%[list]|[place]%`
+
+#### Joining list together
+`join [variable] together with [string to join list with]`
+
 
 ## Jumping to a certain line
   the `goto` command is used to hop to a certain line of code.
