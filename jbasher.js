@@ -2,7 +2,7 @@
 |  jBasher by James Cartwright        |
 | @madeforlosers on github            |
 | https://github.com/madeforlosers    |
-| Version 6                           |
+| Version 7                           |
 \*-----------------------------------*/
 
 const request = require('request');
@@ -62,8 +62,21 @@ for (var i = 0; i < code.length; i++) {
     eval(code[i].split("code: ")[1])
     continue
   }
+   if (code[i].match(/^split variable\s+\w+\s+when string\s+.+\s+appears/g) != null) {
+     coder = code[i]
+    window[coder.split(/variable\s+/)[1].split(/\s+when/)[0]] = window[coder.split(/variable\s+/)[1].split(/\s+when/)[0]].split(coder.split(/string \"/)[1].split(/\" appears/)[0])
+    continue
+  }
+  if (code[i].match(/^join variable\s+.+\s+together with\s+.+ /g) != null) {
+    window[code[i].split(/variable\s+/)[1].split(/\s+together/)[0]] = window[code[i].split(/variable\s+/)[1].split(/\s+together/)[0]].join(code[i].split(/together with\s+"/)[1].split("\"")[0])
+    continue
+  }
   if (code[i].match(/^rjc /g) != null) {
     eval(code[i].split("rjc ")[1])
+    continue
+  }
+   if (code[i].match(/^replace string\s+.+\s+with\s+.+\s+in variable\s+.+/g) != null) {
+    window[code[i].split(/variable\s+/)[1]] = window[code[i].split(/variable\s+/)[1]].replace(code[i].split(/replace string\s+"/)[1].split(/"\s+with\s+"/)[0],code[i].split(/"\s+with\s+"/)[1].split(/"\s+in variable\s+/)[0])
     continue
   }
   if (code[i].match(/^write.+to file.+with flag.+/g) != null) {
@@ -93,8 +106,8 @@ for (var i = 0; i < code.length; i++) {
     ph = ph.replace(/#.+#/, window[ph.split("#")[1]])
     ph = code[i].replace(/%\w+\|.+%/g, window[ph.match(/%\w+\|.+%/g)[0].split("|")[0].split("%")[1]][parseInt(ph.match(/%\w+\|.+%/g)[0].split("|")[1].split("%")[0]) - 1])
   }
-  if (code[i].match(/^set\s+string\s+\w+\sas\s\.+/g) != null) {
-    window[code[i].split(" ")[2]] = code[i].split(" ")[4]
+  if (code[i].match(/^set string\s+\w+\s+as\s+.+/g) != null) {
+    window[code[i].split(/string\s+/)[1].split(/\s+as/)[0]] = code[i].split(/as\s+"/)[1].split("\"")[0]
     continue
   }
   if (code[i].match(/^set\slist\s\w+/g) != null) {
